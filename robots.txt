@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://hew.eselfmade.in/sitemap.xml
+
+
+
+<div class="col-md-4 col-xl-3"><div class=card><img alt="{{rank}} Executive - {{position}} Top Earner. Selfmade" class=mx-auto height=300 width=300 src="" data-src="https://files-accl.zohopublic.in/public/workdrive-public/previewdata/{{image}}??orig=true"><div class="text-center card-body px-1"><h3 class="overflow-hidden text-nowrap">{{name}}</h3><h5>Income: ₹{{income}}</h5></div></div></div>
