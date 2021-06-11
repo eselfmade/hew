@@ -53,7 +53,7 @@
 </div>
 <nav class="navbar navbar-expand navbar-light">
     <div class=container>
-        <a href="" class="font-size-h6 navbar-brand">
+        <a href="" class="font-size-h6 navbar-brand overflow-hidden">
             Selfmade Highest Earners of the Week
         </a>
     </div>
@@ -90,7 +90,7 @@
                 <h2 class="mb-4">BDE Top Earner</h2>
             </div>
         </div>
-        <div class="row flex-fill flex-nowrap justify-content-center" id="bde-earner">
+        <div class="row flex-fill flex-nowrap justify-content-lg-center" id="bde-earner" style="overflow-x:scroll">
             <div class="col-md-4 col-xl-3">
                 <div class=card>
                     <img alt="Business Development Executive - First Top Earner. Selfmade" class=mx-auto height=300
@@ -397,7 +397,7 @@
                     <ul class="list-unstyled mb-7 list-inline mb-md-0">
                         <li class="list-inline-item">
                             <a href="https://www.instagram.com/ecomselfmade/" target="_blank">
-                                <img loading="lazy" src="" height="24" width="24" data-src="instagram.svg"
+                                <img class="lazy" loading="lazy" src="" height="24" width="24" data-src="instagram.svg"
                                      alt="EComSelfmade Instagram Page of Selfmade ECom Private Limited">
                             </a>
                         </li>
@@ -462,14 +462,29 @@
 <link href="critical.min.css" rel="stylesheet">
 <script src="lazy.min.js"></script>
 <script>
-    let earner = `<div class="col-md-4 col-xl-3"><div class=card><img alt="{{name}}. {{rank}} - Position: {{position}} Top Earner. Selfmade" class="lazy mx-auto" height=300 width=300 src="" data-src="https://files-accl.zohopublic.in/public/workdrive-public/previewdata/{{image}}?orig=true"><div class="text-center card-body px-1"><h3 class="overflow-hidden text-nowrap">{{name}}</h3><h5>Income: ₹{{income}}</h5></div></div></div>`;
+    let earner = `<div class="col-md-4 col-xl-3"><div class=card><img alt="{{name}}. {{rank}} - Position: {{position}} Top Earner. Selfmade" class="lazy mx-auto" height=300 width=300 src="" data-src="{{image}}?orig=true"><div class="text-center card-body px-1"><h3 class="overflow-hidden text-nowrap">{{name}}</h3><h5>Income: ₹{{income}}</h5></div></div></div>`;
+
+    function inr(value) {
+        if (!value) return 0;
+        let x = value.toString();
+        let split = x.split('.');
+        let decimal = split[1] ? split[1] : null;
+        x = split[0];
+        let lastThree = x.substring(x.length - 3);
+        let otherNumbers = x.substring(0, x.length - 3);
+        if (otherNumbers !== '') {
+            lastThree = ',' + lastThree;
+        }
+        return otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree + (decimal ? '.' + decimal : '');
+    }
 
     function render(rank, list, element) {
         let html = '';
         for (let i = 0; i < list.length; i++) {
             html += earner.replace('{{rank}}', rank).replace('{{position}}', i + 1)
-                .replace('{{image}}', list[i]['profile_pic']).split('{{name}}').join(list[i].name)
-                .replace('{{income}}', list[i]['income'])
+                .replace('{{image}}', list[i]['profile_pic'] ? `https://files-accl.zohopublic.in/public/workdrive-public/previewdata/${list[i]['profile_pic']}` : `https://ui-avatars.com/api/?name=${list[i].name}`)
+                .split('{{name}}').join(list[i].name)
+                .replace('{{income}}', inr(list[i]['income']))
         }
         document.getElementById(element).innerHTML = html;
     }
@@ -479,16 +494,23 @@
     link.rel = "stylesheet";
     document.body.append(link);
     let lazy = new LazyLoad();
-    fetch('https://eselfmade.in/api/hew/top-earners').then(r => r.json()).then(earners => {
-        render('Senior Business Development Executives', earners['sbde'], 'sbde-earner');
-        render('Business Development Executives', earners['bde'], 'bde-earner');
-        render('7 Star Executives', earners['7-star'], '7-star-earner');
-        render('5 Star Executives', earners['5-star'], '5-star-earner');
-        render('3 Star Associates', earners['3-star'], '3-star-earner');
-        render('Star Associates', earners['star'], 'star-earner');
-        render('Bronze Associates', earners['bronze'], 'bronze-earner');
-        lazy.update();
-        document.getElementById('js-preloader').classList.add('loaded');
-    });
+    let ranks = [
+        {id: 7, short: 'sbde', name: 'Senior Business Development Executives'},
+        {id: 6, short: 'bde', name: 'Business Development Executives'},
+        {id: 5, short: '7-star', name: '7 Star Executives'},
+        {id: 4, short: '5-star', name: '5 Star Executives'},
+        {id: 3, short: '3-star', name: '3 Star Associates'},
+        {id: 2, short: 'star', name: 'Star Associates'},
+        {id: 1, short: 'bronze', name: 'Bronze Associates'}
+    ];
+    for (let i = 0; i < ranks.length; i++) {
+        fetch(`https://eselfmade.in/api/hew/${ranks[i].id}/top-earners`).then(r => r.json()).then(earners => {
+            render(ranks[i].name, earners['leaders'], `${ranks[i].short}-earner`);
+            lazy.update();
+            if (i === 0) {
+                document.getElementById('js-preloader').classList.add('loaded');
+            }
+        });
+    }
 </script>
 </body>
