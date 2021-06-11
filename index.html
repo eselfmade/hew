@@ -482,7 +482,7 @@
         let html = '';
         for (let i = 0; i < list.length; i++) {
             html += earner.replace('{{rank}}', rank).replace('{{position}}', i + 1)
-                .replace('{{image}}', list[i]['profile_pic'] ? `https://files-accl.zohopublic.in/public/workdrive-public/previewdata/${list[i]['profile_pic']}` : `https://ui-avatars.com/api/?name=${list[i].name}`)
+                .replace('{{image}}', list[i]['profile_pic'] ? `https://files-accl.zohopublic.in/public/workdrive-public/previewdata/${list[i]['profile_pic']}` : `https://ui-avatars.com/api/?name=${list[i].name.split('.').join(' ').trim()}&background=random&color=FFF`)
                 .split('{{name}}').join(list[i].name)
                 .replace('{{income}}', inr(list[i]['income']))
         }
