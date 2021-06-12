@@ -66,6 +66,7 @@
             "https://help.eselfmade.in",
             "https://spl.eselfmade.in",
             "https://hew.eselfmade.in",
+            "https://scl.eselfmade.in",
             "https://g.page/eselfmade"
         ]
     }</script>
@@ -501,7 +502,7 @@
 <link href="critical.min.css" rel="stylesheet">
 <script src="lazy.min.js"></script>
 <script>
-    let earner = `<div class="col-md-4 col-xl-3"><div class=card><img alt="{{name}}. {{rank}} - Position: {{position}} Top Earner. Selfmade" class="lazy mx-auto" height=300 width=300 src="" data-src="{{image}}?orig=true"><div class="text-center card-body px-1"><h3 class="overflow-hidden text-nowrap">{{name}}</h3><h5>Income: ₹{{income}}</h5></div></div></div>`;
+    let earner = `<div class="col-md-4 col-xl-3"><div class=card><img alt="{{name}}. {{rank}} - Position: {{position}} Top Earner. Selfmade" class="lazy mx-auto" height=300 width=300 src="" data-src="{{image}}"><div class="text-center card-body px-1"><h3 class="overflow-hidden text-nowrap">{{name}}</h3><h5>Income: ₹{{income}}</h5></div></div></div>`;
 
     function inr(value) {
         if (!value) return 0;
@@ -521,7 +522,7 @@
         let html = '';
         for (let i = 0; i < list.length; i++) {
             html += earner.replace('{{rank}}', rank).replace('{{position}}', i + 1)
-                .replace('{{image}}', list[i]['profile_pic'] ? `https://files-accl.zohopublic.in/public/workdrive-public/previewdata/${list[i]['profile_pic']}` : `https://ui-avatars.com/api/?name=${list[i].name.split('.').join(' ').trim()}&background=random&color=FFF`)
+                .replace('{{image}}', list[i]['profile_pic'] ? `https://files-accl.zohopublic.in/public/workdrive-public/previewdata/${list[i]['profile_pic']}?orig=true` : `https://ui-avatars.com/api/?name=${list[i].name.split('.').join(' ').trim()}&background=random&color=FFF`)
                 .split('{{name}}').join(list[i].name)
                 .replace('{{income}}', inr(list[i]['income']))
         }
