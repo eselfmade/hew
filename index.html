@@ -9,7 +9,7 @@
     <meta content="https://hew.eselfmade.in" property="og:url">
     <meta content="View the Highest Earners of this Week" property="og:description">
     <meta content="https://hew.eselfmade.in/sm-og.png" property="og:image">
-    <meta content="Selfmade | HEW | View the Highest Earners of this Week" name="description">
+    <meta content="View the Highest Earners of this Week" name="description">
     <link rel="canonical" href="https://hew.eselfmade.in/">
     <script type="application/ld+json">{
         "@context": "https://schema.org",
@@ -81,7 +81,7 @@
     <style>.js-preloader{position:fixed;top:0;left:0;right:0;bottom:0;background-color:#fff;display:-webkit-box;display:flex;-webkit-box-align:center;align-items:center;-webkit-box-pack:center;justify-content:center;opacity:1;visibility:visible;z-index:9999;-webkit-transition:opacity 0.25s ease;transition:opacity 0.25s ease}@-webkit-keyframes dot{50%{-webkit-transform:translateX(96px);transform:translateX(96px)}}@keyframes dot{50%{-webkit-transform:translateX(96px);transform:translateX(96px)}}@-webkit-keyframes dots{50%{-webkit-transform:translateX(-31px);transform:translateX(-31px)}}@keyframes dots{50%{-webkit-transform:translateX(-31px);transform:translateX(-31px)}}.preloader-inner{position:relative;width:142px;height:40px;background:#fff}.preloader-inner .dot{position:absolute;width:16px;height:16px;top:12px;left:15px;background:#fe3f40;border-radius:50%;-webkit-transform:translateX(0);transform:translateX(0);-webkit-animation:dot 2.8s infinite;animation:dot 2.8s infinite}.preloader-inner .dots{-webkit-transform:translateX(0);transform:translateX(0);margin-top:12px;margin-left:31px;-webkit-animation:dots 2.8s infinite;animation:dots 2.8s infinite}.preloader-inner .dots span{display:block;float:left;width:16px;height:16px;margin-left:16px;background:#fe3f40;border-radius:50%}</style>
     <!--@formatter:on-->
     <meta http-equiv='Content-Security-Policy'
-          content="default-src 'self' https://eselfmade.in; script-src 'self' 'unsafe-inline' www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com/; font-src https://fonts.gstatic.com; img-src 'self' https://files-accl.zohopublic.in https://ui-avatars.com data:; media-src 'self';">
+          content="default-src 'self' https://eselfmade.in; script-src 'self' 'unsafe-inline' www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com/; font-src https://fonts.gstatic.com; img-src 'self' https://previewengine-accl.zoho.in https://ui-avatars.com data:; media-src 'self';">
 </head>
 <body>
 <div id="js-preloader" class="js-preloader">
@@ -547,7 +547,7 @@
     function render(rank, list, element) {
         let html = '';
         for (let i = 0; i < list.length; i++) {
-            let image = list[i]['profile_pic'] ? `https://files-accl.zohopublic.in/public/workdrive-public/previewdata/${list[i]['profile_pic']}?orig=true` : `https://ui-avatars.com/api/?name=${list[i].name.split('.').join(' ').trim()}&background=random&color=FFF`;
+            let image = list[i]['profile_pic'] ? `https://previewengine-accl.zoho.in/thumbnail/WD/${list[i]['profile_pic']}?size=l` : `https://ui-avatars.com/api/?name=${list[i].name.split('.').join(' ').trim()}&background=random&color=FFF`;
             schema.image.push(image);
             html += earner.replace('{{rank}}', rank).replace('{{position}}', i + 1)
                 .replace('{{image}}', image)
