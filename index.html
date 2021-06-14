@@ -7,7 +7,7 @@
     <meta content="Selfmade | HEW | Highest Earners of the Week" name="title">
     <meta content="Selfmade | HEW | Highest Earners of the Week" property="og:title">
     <meta content="https://hew.eselfmade.in" property="og:url">
-    <meta content="Selfmade | HEW | View the Highest Earners of this Week" property="og:description">
+    <meta content="View the Highest Earners of this Week" property="og:description">
     <meta content="https://hew.eselfmade.in/sm-og.png" property="og:image">
     <meta content="Selfmade | HEW | View the Highest Earners of this Week" name="description">
     <link rel="canonical" href="https://hew.eselfmade.in/">
@@ -70,6 +70,7 @@
             "https://g.page/eselfmade"
         ]
     }</script>
+    <script type="application/ld+json" id="blog-schema"></script>
     <!--@formatter:off-->
     <script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
         (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -79,7 +80,8 @@
     ga('send','pageview');</script>
     <style>.js-preloader{position:fixed;top:0;left:0;right:0;bottom:0;background-color:#fff;display:-webkit-box;display:flex;-webkit-box-align:center;align-items:center;-webkit-box-pack:center;justify-content:center;opacity:1;visibility:visible;z-index:9999;-webkit-transition:opacity 0.25s ease;transition:opacity 0.25s ease}@-webkit-keyframes dot{50%{-webkit-transform:translateX(96px);transform:translateX(96px)}}@keyframes dot{50%{-webkit-transform:translateX(96px);transform:translateX(96px)}}@-webkit-keyframes dots{50%{-webkit-transform:translateX(-31px);transform:translateX(-31px)}}@keyframes dots{50%{-webkit-transform:translateX(-31px);transform:translateX(-31px)}}.preloader-inner{position:relative;width:142px;height:40px;background:#fff}.preloader-inner .dot{position:absolute;width:16px;height:16px;top:12px;left:15px;background:#fe3f40;border-radius:50%;-webkit-transform:translateX(0);transform:translateX(0);-webkit-animation:dot 2.8s infinite;animation:dot 2.8s infinite}.preloader-inner .dots{-webkit-transform:translateX(0);transform:translateX(0);margin-top:12px;margin-left:31px;-webkit-animation:dots 2.8s infinite;animation:dots 2.8s infinite}.preloader-inner .dots span{display:block;float:left;width:16px;height:16px;margin-left:16px;background:#fe3f40;border-radius:50%}</style>
     <!--@formatter:on-->
-    <meta http-equiv='Content-Security-Policy' content="default-src 'self' https://eselfmade.in; script-src 'self' 'unsafe-inline' www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com/; font-src https://fonts.gstatic.com; img-src 'self' https://files-accl.zohopublic.in https://ui-avatars.com data:; media-src 'self';">
+    <meta http-equiv='Content-Security-Policy'
+          content="default-src 'self' https://eselfmade.in; script-src 'self' 'unsafe-inline' www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com/; font-src https://fonts.gstatic.com; img-src 'self' https://files-accl.zohopublic.in https://ui-avatars.com data:; media-src 'self';">
 </head>
 <body>
 <div id="js-preloader" class="js-preloader">
@@ -503,6 +505,29 @@
 <link href="critical.min.css" rel="stylesheet">
 <script src="lazy.min.js"></script>
 <script>
+    let schema = {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "image": [],
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://google.com/article"
+        },
+        "headline": "Highest Earners of the Week in Selfmade. HEW.",
+        "datePublished": "2020-05-05T08:00:00+08:00",
+        "author": {
+            "@type": "Person",
+            "name": "Karthikeyan"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "Selfmade",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://hew.eselfmade.in/sm.png"
+            }
+        }
+    };
     let earner = `<div class="col-md-4 col-xl-3"><div class=card><img alt="{{name}}. {{rank}} - Position: {{position}} Top Earner. Selfmade" class="lazy mx-auto" height=300 width=300 src="" data-src="{{image}}"><div class="text-center card-body px-1"><h3 class="overflow-hidden text-nowrap">{{name}}</h3><h5>Income: ₹{{income}}</h5></div></div></div>`;
 
     function inr(value) {
@@ -522,8 +547,10 @@
     function render(rank, list, element) {
         let html = '';
         for (let i = 0; i < list.length; i++) {
+            let image = list[i]['profile_pic'] ? `https://files-accl.zohopublic.in/public/workdrive-public/previewdata/${list[i]['profile_pic']}?orig=true` : `https://ui-avatars.com/api/?name=${list[i].name.split('.').join(' ').trim()}&background=random&color=FFF`;
+            schema.image.push(image);
             html += earner.replace('{{rank}}', rank).replace('{{position}}', i + 1)
-                .replace('{{image}}', list[i]['profile_pic'] ? `https://files-accl.zohopublic.in/public/workdrive-public/previewdata/${list[i]['profile_pic']}?orig=true` : `https://ui-avatars.com/api/?name=${list[i].name.split('.').join(' ').trim()}&background=random&color=FFF`)
+                .replace('{{image}}', image)
                 .split('{{name}}').join(list[i].name)
                 .replace('{{income}}', inr(list[i]['income']))
         }
@@ -550,6 +577,9 @@
             lazy.update();
             if (i === 0) {
                 document.getElementById('js-preloader').remove();
+            }
+            if (i === ranks.length - 1) {
+                document.getElementById('blog-schema').innerHTML = JSON.stringify(schema);
             }
         });
     }
