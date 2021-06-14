@@ -81,7 +81,7 @@
     <style>.js-preloader{position:fixed;top:0;left:0;right:0;bottom:0;background-color:#fff;display:-webkit-box;display:flex;-webkit-box-align:center;align-items:center;-webkit-box-pack:center;justify-content:center;opacity:1;visibility:visible;z-index:9999;-webkit-transition:opacity 0.25s ease;transition:opacity 0.25s ease}@-webkit-keyframes dot{50%{-webkit-transform:translateX(96px);transform:translateX(96px)}}@keyframes dot{50%{-webkit-transform:translateX(96px);transform:translateX(96px)}}@-webkit-keyframes dots{50%{-webkit-transform:translateX(-31px);transform:translateX(-31px)}}@keyframes dots{50%{-webkit-transform:translateX(-31px);transform:translateX(-31px)}}.preloader-inner{position:relative;width:142px;height:40px;background:#fff}.preloader-inner .dot{position:absolute;width:16px;height:16px;top:12px;left:15px;background:#fe3f40;border-radius:50%;-webkit-transform:translateX(0);transform:translateX(0);-webkit-animation:dot 2.8s infinite;animation:dot 2.8s infinite}.preloader-inner .dots{-webkit-transform:translateX(0);transform:translateX(0);margin-top:12px;margin-left:31px;-webkit-animation:dots 2.8s infinite;animation:dots 2.8s infinite}.preloader-inner .dots span{display:block;float:left;width:16px;height:16px;margin-left:16px;background:#fe3f40;border-radius:50%}</style>
     <!--@formatter:on-->
     <meta http-equiv='Content-Security-Policy'
-          content="default-src 'self' https://eselfmade.in; script-src 'self' 'unsafe-inline' www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com/; font-src https://fonts.gstatic.com; img-src 'self' https://previewengine-accl.zoho.in https://ui-avatars.com data:; media-src 'self';">
+          content="default-src 'self' https://eselfmade.in; script-src 'self' 'unsafe-inline' www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com/; font-src https://fonts.gstatic.com; img-src 'self' https://workdrive.zoho.in https://download-accl.zoho.in https://ui-avatars.com data:; media-src 'self';">
 </head>
 <body>
 <div id="js-preloader" class="js-preloader">
@@ -528,7 +528,7 @@
             }
         }
     };
-    let earner = `<div class="col-md-4 col-xl-3"><div class=card><img alt="{{name}}. {{rank}} - Position: {{position}} Top Earner. Selfmade" class="lazy mx-auto" height=300 width=300 src="" data-src="{{image}}"><div class="text-center card-body px-1"><h3 class="overflow-hidden text-nowrap">{{name}}</h3><h5>Income: ₹{{income}}</h5></div></div></div>`;
+    let earner = `<div class="col-md-4 col-xl-3"><div class=card><img alt="{{name}}. {{rank}} - Position: {{position}} Top Earner. Selfmade" class="lazy mx-auto img-fluid" height=300 width=300 src="" data-src="{{image}}"><div class="text-center card-body px-1"><h3 class="overflow-hidden text-nowrap">{{name}}</h3><h5>Income: ₹{{income}}</h5></div></div></div>`;
 
     function inr(value) {
         if (!value) return 0;
@@ -547,12 +547,10 @@
     function render(rank, list, element) {
         let html = '';
         for (let i = 0; i < list.length; i++) {
-            let image = list[i]['profile_pic'] ? `https://previewengine-accl.zoho.in/thumbnail/WD/${list[i]['profile_pic']}?size=l` : `https://ui-avatars.com/api/?name=${list[i].name.split('.').join(' ').trim()}&background=random&color=FFF`;
+            let image = list[i]['profile_pic'] ? `https://workdrive.zoho.in/api/v1/download/${list[i]['profile_pic']}` : `https://ui-avatars.com/api/?name=${list[i].name.split('.').join(' ').trim()}&background=random&color=FFF`;
             schema.image.push(image);
-            html += earner.replace('{{rank}}', rank).replace('{{position}}', i + 1)
-                .replace('{{image}}', image)
-                .split('{{name}}').join(list[i].name)
-                .replace('{{income}}', inr(list[i]['income']))
+            html += earner.replace('{{rank}}', rank).replace('{{position}}', i + 1).replace('{{image}}', image)
+                .split('{{name}}').join(list[i].name).replace('{{income}}', inr(list[i]['income']));
         }
         document.getElementById(element).innerHTML = html;
     }
