@@ -423,7 +423,7 @@
         </div>
     </div>
 </section>
-<footer class="bg-cover bg-dark">
+<footer class="bg-cover bg-odd-blue-light">
     <div class="border-bottom border-gray-700 py-12">
         <div class="container">
             <div class="row justify-content-center">
@@ -569,9 +569,8 @@
     }
 
     function loadPreview(i) {
-        let image = earners[i]['profile_pic'] ? `https://workdrive.zoho.in/api/v1/download/${earners[i]['profile_pic']}` : `https://ui-avatars.com/api/?name=${earners[i].name.split('.').join(' ').trim()}&background=random&color=FFF`;
+        document.getElementById('preview-image').src = earners[i]['profile_pic'] ? `https://workdrive.zoho.in/api/v1/download/${earners[i]['profile_pic']}` : `https://ui-avatars.com/api/?name=${earners[i].name.split('.').join(' ').trim()}&background=random&color=FFF`;
         document.getElementById('preview-name').innerText = earners[i].name;
-        document.getElementById('preview-image').src = image;
         document.getElementById('preview-rank').innerText = rank[earners[i].rank_id];
         document.getElementById('preview-income').innerText = inr(earners[i].income);
     }
@@ -582,7 +581,7 @@
         let html = '', html_mob = '',
             earner_mob = '<div id="{{id}}" onclick="previewMobile({{i}})" class="row text-center pointer flex-nowrap transition-5"><div class="col-2 align-self-center earner-rank px-0">{{rank}} </div><div class="col-2 align-self-center px-0"><img src="{{image}}" alt="{{name}} Top Earner of Selfmade Ecom Private Limited" class="img-fluid pt px-0"></div><div class="col-5 align-self-center earner-name text-nowrap overflow-hidden">{{name}}</div><div class="col-3 align-self-center earner-income text-nowrap pl-0">₹{{income}}</div></div></div><hr class="earner-list">',
             earner = '<div class="row text-center pointer transition-5" onclick="loadPreview({{i}})"><div class="col-1 align-self-center earner-rank transition-5 h4">{{rank}}.</div><div class="col-2 align-self-center"><img src="{{image}}" alt="{{name}} Top Earner of Selfmade Ecom Private Limited" class="img-fluid pt"></div><div class="col-5 align-self-center h3 earner-name text-nowrap overflow-hidden">{{name}}</div><div class="col-4 align-self-center h2 earner-income"><span class="h5">₹ </span>{{income}}</div><div class="col-1 align-self-center"></div></div><hr class="earner-list">',
-            preview_mob = '<div onclick="hideMobile({{i}})" id="{{id}}" class="d-none transition-5"><div class="row text-center pointer flex-nowrap"><div class="col-1 earner-rank align-self-center">{{rank}}</div><div class="col-5 pr-0"><img src="{{image}}" alt="{{name}} Top Earner of Selfmade Ecom Private Limited" class="img-fluid preview p-0 transition-5"></div><div class="col-6 align-self-center"><div class="row text-center"><div class="col earner-name">{{name}}</div></div><div class="row text-center"><div class="col earner-name text-nowrap overflow-hidden transition-5">{{rank}}</div></div><div class="row text-center"><div class="col earner-income text-nowrap transition-5">₹{{income}}</div></div></div></div></div>';
+            preview_mob = '<div onclick="hideMobile({{i}})" id="{{id}}" class="d-none transition-5"><div class="row text-center pointer flex-nowrap"><div class="col-1 earner-rank align-self-center">{{rank}}</div><div class="col-5 pr-0"><img src="{{image}}" alt="{{name}} Top Earner of Selfmade Ecom Private Limited" class="img-fluid preview p-0 transition-5"></div><div class="col-6 align-self-center"><div class="row text-center"><div class="col earner-name">{{name}}</div></div><div class="row text-center"><div class="col earner-rank text-nowrap overflow-hidden">{{rank}}</div></div><div class="row text-center"><div class="col earner-income text-nowrap transition-5">₹{{income}}</div></div></div></div></div>';
         for (let i = 0; i < earners.length; i++) {
             let image = earners[i]['profile_pic'] ? `https://workdrive.zoho.in/api/v1/download/${earners[i]['profile_pic']}` : `https://ui-avatars.com/api/?name=${earners[i].name.split('.').join(' ').trim()}&background=random&color=FFF`;
             html += earner.split('{{name}}').join(earners[i].name).split('{{income}}').join(inr(earners[i].income))
@@ -623,7 +622,7 @@
     }
 
     let link = document.createElement('link');
-    link.href = "https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,800;0,900;1,500;1,800&display=swap";
+    link.href = "https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,400;0,800;0,900;1,500;1,800&display=swap";
     link.rel = "stylesheet";
     document.body.append(link);
     let lazy = new LazyLoad();
