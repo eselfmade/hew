@@ -99,7 +99,7 @@
 <nav class="navbar navbar-expand navbar-light bg-even-blue-light">
     <div class=container>
         <a href="" class="navbar-brand overflow-auto">
-            <h1 class="font-size-h6" style="color:#e7f6fa">Highest Earners of the Week</h1>
+            <h1 class="font-size-h6" style="color:#e7f6fa;font-weight:800">Highest Earners of the Week</h1>
         </a>
     </div>
 </nav>
@@ -523,7 +523,7 @@
             }
         }
     };
-    let earner = `<div class="col"><div class="card card-blue-light"><div class="text-center card-body px-1"><div class="img-wrapper"><img alt="{{name}}. {{rank}} - Position: {{position}} Top Earner. Selfmade" class="m-5 lazy mx-auto oval" height="{{resolution}}" width="{{resolution}}" src="" data-src="{{image}}"></div><h3 class="leader-name text-nowrap overflow-hidden h4 pt-7">{{name}}</h3><h1><span class="h3">₹ </span>{{income}}<span class="h4">/-</span></h1></div></div></div>`;
+    let earner = `<div class="col"><div class="card card-blue-light"><div class="text-center card-body px-1"><div class="img-wrapper"><img alt="{{name}}. {{rank}} - Position: {{position}} Top Earner. Selfmade" class="m-5 lazy mx-auto oval" height="{{resolution}}" width="{{resolution}}" src="" data-src="{{image}}"></div><h3 class="leader-name text-nowrap overflow-hidden h4 pt-7" style="font-weight:600">{{name}}</h3><h1><span class="h3">₹ </span><span style="font-weight:800">{{income}}</span><span class="h4">/-</span></h1></div></div></div>`;
     let rank = {
         1: "Bronze",
         2: "Star",
@@ -622,7 +622,7 @@
     }
 
     let link = document.createElement('link');
-    link.href = "https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,400;0,800;0,900;1,500;1,800&display=swap";
+    link.href = "https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,400;0,600;0,800;0,900;1,500;1,800&display=swap";
     link.rel = "stylesheet";
     document.body.append(link);
     let lazy = new LazyLoad();
